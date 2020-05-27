@@ -8,5 +8,5 @@ setup(name='freecad.appimage_updater',
       maintainer="looooo",
       maintainer_email="sppedflyer@gmail.com",
       url="...",
-      description="functionality for updating the appimage from within freecad",
+      description="tool for updating the appimage from within freecad",
       include_package_data=True)
