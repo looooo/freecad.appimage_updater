@@ -1,0 +1,2 @@
+recursive-include freecad/appimage_updater/icons *
+recursive-include freecad/appimage_updater/ui *
