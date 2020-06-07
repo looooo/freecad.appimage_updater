@@ -32,7 +32,7 @@
    <item>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="1">
-      <widget class="Gui::PrefCheckBox" name="gui::prefcheckbox_2">
+      <widget class="Gui::PrefCheckBox" name="always_check_updates">
        <property name="enabled">
         <bool>true</bool>
        </property>

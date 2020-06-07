@@ -61,6 +61,7 @@ class AppImageUpdaterDialog(QtGui.QDialog):
         self.log.moveCursor(QtGui.QTextCursor.End)
         self.log.insertPlainText(msg)
         self.log.insertPlainText("\n")
+        self.log.moveCursor(QtGui.QTextCursor.End)
 
     def update_foo(self, available, update_info):
         if available:
@@ -70,6 +71,8 @@ class AppImageUpdaterDialog(QtGui.QDialog):
             self.log.moveCursor(QtGui.QTextCursor.End)
             self.log.insertPlainText("\n")
             self.log.insertPlainText("\n")
+            self.log.insertPlainText("The latest available AppImage is already installed.")
+            self.log.moveCursor(QtGui.QTextCursor.End)
 
     def finished_foo(self, new, old):
         self.new_file_name = new["AbsolutePath"]
