@@ -14,12 +14,14 @@ class AppImageUpdaterDialog(QtGui.QDialog):
         self.log = QtGui.QTextEdit()
         self.log.setReadOnly(True)
 
-        self.update_button = QtGui.QPushButton("check for update")
-        self.button_widget = QtGui.QDialogButtonBox(QtGui.QDialogButtonBox.Cancel)
+        self.cancel_button = QtGui.QPushButton("Cancel")
+        self.update_button = QtGui.QPushButton("Check for update")
+        self.button_widget = QtGui.QWidget()
         self.button_widget.setLayout(QtGui.QHBoxLayout())
+        self.button_widget.layout().addWidget(self.cancel_button)
         self.button_widget.layout().addWidget(self.update_button)
         self.update_button.clicked.connect(self.update)
-        self.button_widget.rejected.connect(self.reject)
+        self.cancel_button.clicked.connect(self.reject)
         self.update_button.setEnabled(False)
 
         self.progress_bar = QtGui.QProgressBar()
@@ -40,7 +42,6 @@ class AppImageUpdaterDialog(QtGui.QDialog):
         self.updater.logger.connect(self.logging_foo)
         self.updater.progress.connect(self.progress_foo)
         self.updater.finished.connect(self.finished_foo)
-        self.updater.updateAvailable.connect(self.show)
 
         # set the appimage and check for updates
         self.updater.setAppImage(os.environ['APPIMAGE'])
@@ -66,7 +67,9 @@ class AppImageUpdaterDialog(QtGui.QDialog):
     def update_foo(self, available, update_info):
         if available:
             self.update_button.setEnabled(True)
-            self.update_button.setText("update")
+            self.update_button.setText("Update")
+            if self.isHidden():
+                self.show()
         else:
             self.log.moveCursor(QtGui.QTextCursor.End)
             self.log.insertPlainText("\n")
@@ -76,7 +79,7 @@ class AppImageUpdaterDialog(QtGui.QDialog):
 
     def finished_foo(self, new, old):
         self.new_file_name = new["AbsolutePath"]
-        self.update_button.setText("restart")
+        self.update_button.setText("Restart")
         self.update_button.clicked.disconnect()
         self.update_button.setEnabled(True)
         self.update_button.clicked.connect(self.restart)
