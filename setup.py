@@ -4,7 +4,7 @@ import os
 
 setup(name='freecad.appimage-updater',
       version="0.0.1",
-      packages=['freecad.appimage_updater'],
+      packages=['freecad.appimage'],
       maintainer="looooo",
       maintainer_email="sppedflyer@gmail.com",
       url="https://github.com/looooo/freecad.appimage_updater",
