@@ -43,8 +43,7 @@ class AppImageUpdaterDialog(QtGui.QDialog):
         self.updater.progress.connect(self.progress_foo)
         self.updater.finished.connect(self.finished_foo)
 
-        # set the appimage and check for updates
-        self.updater.setAppImage(os.environ['APPIMAGE'])
+        # check for updates
         self.updater.checkForUpdate()
 
     def sizeHint(self, *args):
