@@ -1,30 +1,30 @@
 import sys
 import os
 import time
-from PySide import QtGui, QtCore
+from PySide2 import QtWidgets, QtGui, QtCore, QtNetwork
 
 
-class AppImageUpdaterDialog(QtGui.QDialog):
+class AppImageUpdaterDialog(QtWidgets.QDialog):
     is_shown = False
     def __init__(self, parent=None):
         super(AppImageUpdaterDialog, self).__init__(parent=parent)
         self.setWindowTitle("AppImage-Update")
-        self.setLayout(QtGui.QVBoxLayout())
+        self.setLayout(QtWidgets.QVBoxLayout())
 
-        self.log = QtGui.QTextEdit()
+        self.log = QtWidgets.QTextEdit()
         self.log.setReadOnly(True)
 
-        self.cancel_button = QtGui.QPushButton("Cancel")
-        self.update_button = QtGui.QPushButton("Check for update")
-        self.button_widget = QtGui.QWidget()
-        self.button_widget.setLayout(QtGui.QHBoxLayout())
+        self.cancel_button = QtWidgets.QPushButton("Cancel")
+        self.update_button = QtWidgets.QPushButton("Check for update")
+        self.button_widget = QtWidgets.QWidget()
+        self.button_widget.setLayout(QtWidgets.QHBoxLayout())
         self.button_widget.layout().addWidget(self.cancel_button)
         self.button_widget.layout().addWidget(self.update_button)
         self.update_button.clicked.connect(self.update)
         self.cancel_button.clicked.connect(self.reject)
         self.update_button.setEnabled(False)
 
-        self.progress_bar = QtGui.QProgressBar()
+        self.progress_bar = QtWidgets.QProgressBar()
 
         self.layout().addWidget(self.log)
         self.layout().addWidget(self.progress_bar)
@@ -42,6 +42,12 @@ class AppImageUpdaterDialog(QtGui.QDialog):
         self.updater.logger.connect(self.logging_foo)
         self.updater.progress.connect(self.progress_foo)
         self.updater.finished.connect(self.finished_foo)
+
+        self.proxy = QtNetwork.QNetworkProxy()
+        self.proxy.setType(QtNetwork.QNetworkProxy.Socks5Proxy)
+        self.proxy.setHostName("127.1") # 127.0.0.1 can be written as 127.1
+        self.proxy.setPort(9050)
+        self.updater.setProxy(self.proxy)
 
         # check for updates
         self.updater.checkForUpdate()
@@ -70,7 +76,7 @@ class AppImageUpdaterDialog(QtGui.QDialog):
             if self.isHidden():
                 self.show()
         else:
-            self.log.moveCursor(QtGui.QTextCursor.End)
+            self.log.moveCursor(QtWidgets.QTextCursor.End)
             self.log.insertPlainText("\n")
             self.log.insertPlainText("\n")
             self.log.insertPlainText("The latest available AppImage is already installed.")
