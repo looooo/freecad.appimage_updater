@@ -83,7 +83,7 @@ class AppImageUpdaterDialog(QtWidgets.QDialog):
             self.log.moveCursor(QtGui.QTextCursor.End)
 
     def finished_foo(self, new, old):
-        self.new_file_name = new["AbsolutePath"]
+        self.new_file_name = new["AbsolutePath"].toString()
         self.update_button.setText("Restart")
         self.update_button.clicked.disconnect()
         self.update_button.setEnabled(True)
