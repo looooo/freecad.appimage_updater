@@ -76,7 +76,7 @@ class AppImageUpdaterDialog(QtWidgets.QDialog):
             if self.isHidden():
                 self.show()
         else:
-            self.log.moveCursor(QtWidgets.QTextCursor.End)
+            self.log.moveCursor(QtGui.QTextCursor.End)
             self.log.insertPlainText("\n")
             self.log.insertPlainText("\n")
             self.log.insertPlainText("The latest available AppImage is already installed.")
