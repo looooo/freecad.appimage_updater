@@ -1,8 +1,7 @@
 import sys
 import os
 import time
-from PySide2 import QtWidgets, QtGui, QtCore, QtNetwork
-
+from PySide2 import QtWidgets, QtGui, QtCore
 
 class AppImageUpdaterDialog(QtWidgets.QDialog):
     is_shown = False
@@ -42,13 +41,7 @@ class AppImageUpdaterDialog(QtWidgets.QDialog):
         self.updater.logger.connect(self.logging_foo)
         self.updater.progress.connect(self.progress_foo)
         self.updater.finished.connect(self.finished_foo)
-
-        self.proxy = QtNetwork.QNetworkProxy()
-        self.proxy.setType(QtNetwork.QNetworkProxy.Socks5Proxy)
-        self.proxy.setHostName("127.1") # 127.0.0.1 can be written as 127.1
-        self.proxy.setPort(9050)
-        self.updater.setProxy(self.proxy)
-
+        
         # check for updates
         self.updater.checkForUpdate()
 
