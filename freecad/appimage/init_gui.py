@@ -19,7 +19,7 @@ class AppImagePreferencePage:
         FreeCAD.appimage_updater.exec()
 
     def saveSettings(self):
-        preference_tabel.SetBool("appimage_auto_update", bool(self.form.always_check_updates.isChecked()))
+        pass
 
 FreeCADGui.addPreferencePage(AppImagePreferencePage,'AppImage')
 
